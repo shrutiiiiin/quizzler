@@ -33,6 +33,10 @@ class quizpage extends StatefulWidget {
 }
 
 class _quizpageState extends State<quizpage> {
+  List<Icon> scroekeeper = [
+    Icon(Icons.check),
+    Icon(Icons.close),
+  ];
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -59,7 +63,11 @@ class _quizpageState extends State<quizpage> {
                 backgroundColor: Colors.green,
               ),
               onPressed: () {
-                setState(() {});
+                setState(() {
+                  scroekeeper.add(
+                    Icon(Icons.check),
+                  );
+                });
               },
               child: Text(
                 'True',
@@ -86,10 +94,7 @@ class _quizpageState extends State<quizpage> {
           ),
         ),
         Row(
-          children: [
-            Icon(Icons.check),
-            Icon(Icons.close),
-          ],
+          children: scroekeeper,
         ),
       ],
     );
