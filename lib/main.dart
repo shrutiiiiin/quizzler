@@ -85,6 +85,12 @@ class _quizpageState extends State<quizpage> {
             ),
           ),
         ),
+        Row(
+          children: [
+            Icon(Icons.check),
+            Icon(Icons.close),
+          ],
+        ),
       ],
     );
   }
