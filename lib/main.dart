@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 void main() {
   runApp(quiz());
@@ -34,9 +35,16 @@ class quizpage extends StatefulWidget {
 
 class _quizpageState extends State<quizpage> {
   List<Icon> scroekeeper = [
-    Icon(Icons.check),
-    Icon(Icons.close),
+    Icon(Icons.check, color: Colors.white),
+    Icon(Icons.close, color: Colors.white),
   ];
+  List<String> questions = [
+    'You can lead a cow down stairs but not upstairs',
+    'Approximatetly one quarter of human bones are in the feet',
+    'A slug\'s blood is green ',
+  ];
+  int questionNum = 0;
+  List<bool> answers = [false, true, true];
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -49,7 +57,7 @@ class _quizpageState extends State<quizpage> {
             padding: const EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                'This is where questions will be displayed',
+                questions[questionNum],
                 style: TextStyle(color: Colors.white),
               ),
             ),
@@ -63,10 +71,25 @@ class _quizpageState extends State<quizpage> {
                 backgroundColor: Colors.green,
               ),
               onPressed: () {
+                bool correctans = answers[questionNum];
+
+                if (correctans == false) {
+                  Fluttertoast.showToast(
+                      msg: "Your answer is correct !",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.SNACKBAR,
+                      textColor: Colors.white,
+                      fontSize: 16);
+                } else {
+                  Fluttertoast.showToast(
+                      msg: "WRONG ANSWER !",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.SNACKBAR,
+                      textColor: Colors.white,
+                      fontSize: 16);
+                }
                 setState(() {
-                  scroekeeper.add(
-                    Icon(Icons.check),
-                  );
+                  questionNum++;
                 });
               },
               child: Text(
@@ -84,7 +107,26 @@ class _quizpageState extends State<quizpage> {
                 backgroundColor: Colors.red,
               ),
               onPressed: () {
-                setState(() {});
+                bool correctans = answers[questionNum];
+
+                if (correctans == true) {
+                  Fluttertoast.showToast(
+                      msg: "Your answer is correct !",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.SNACKBAR,
+                      textColor: Colors.white,
+                      fontSize: 16);
+                } else {
+                  Fluttertoast.showToast(
+                      msg: "WRONG ANSWER !",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.SNACKBAR,
+                      textColor: Colors.white,
+                      fontSize: 16);
+                }
+                setState(() {
+                  questionNum++;
+                });
               },
               child: Text(
                 'False',
