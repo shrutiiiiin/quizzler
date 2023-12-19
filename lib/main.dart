@@ -61,7 +61,10 @@ class _quizpageState extends State<quizpage> {
               onPressed: () {
                 setState(() {});
               },
-              child: Text('True'),
+              child: Text(
+                'True',
+                style: TextStyle(color: Colors.white),
+              ),
             ),
           ),
         ),
@@ -75,7 +78,10 @@ class _quizpageState extends State<quizpage> {
               onPressed: () {
                 setState(() {});
               },
-              child: Text('False'),
+              child: Text(
+                'False',
+                style: TextStyle(color: Colors.white),
+              ),
             ),
           ),
         ),
