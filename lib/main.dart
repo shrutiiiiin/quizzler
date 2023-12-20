@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'question.dart';
+import 'quizBrain.dart';
+
+Quizbrain quizbrain = Quizbrain();
 
 void main() {
   runApp(quiz());
@@ -40,13 +43,6 @@ class _quizpageState extends State<quizpage> {
     Icon(Icons.close, color: Colors.white),
   ];
 
-  List<Questions> questionBank = [
-    Questions(q: 'You can lead a cow down stairs but not upstairs', a: false),
-    Questions(
-        q: 'Approximatetly one quarter of human bones are in the feet',
-        a: true),
-    Questions(q: 'A slug\'s blood is green ', a: true),
-  ];
   int questionNum = 0;
   @override
   Widget build(BuildContext context) {
@@ -60,7 +56,7 @@ class _quizpageState extends State<quizpage> {
             padding: const EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                questionBank[questionNum] as String,
+                quizbrain.questionBank[questionNum] as String,
                 style: TextStyle(color: Colors.white),
               ),
             ),
@@ -74,7 +70,7 @@ class _quizpageState extends State<quizpage> {
                 backgroundColor: Colors.green,
               ),
               onPressed: () {
-                bool correctans = questionBank[questionNum] as bool;
+                bool correctans = quizbrain.questionBank[questionNum] as bool;
 
                 if (correctans == false) {
                   Fluttertoast.showToast(
@@ -110,7 +106,7 @@ class _quizpageState extends State<quizpage> {
                 backgroundColor: Colors.red,
               ),
               onPressed: () {
-                bool correctans = questionBank[questionNum] as bool;
+                bool correctans = quizbrain.questionBank[questionNum] as bool;
 
                 if (correctans == true) {
                   Fluttertoast.showToast(

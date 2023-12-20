@@ -1,8 +1,8 @@
-class Questions {
+class Question {
   String? questionText;
   bool? questionAns;
 
-  Questions({required String q, required bool a}) {
+  Question(String q, bool a) {
     questionText = q;
     questionAns = a;
   }
