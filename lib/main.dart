@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'question.dart';
 import 'quizBrain.dart';
 
 Quizbrain quizbrain = Quizbrain();
@@ -43,7 +42,7 @@ class _quizpageState extends State<quizpage> {
     Icon(Icons.close, color: Colors.white),
   ];
 
-  int questionNum = 0;
+  // int questionNum = 0;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -56,7 +55,7 @@ class _quizpageState extends State<quizpage> {
             padding: const EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                quizbrain.questionBank[questionNum] as String,
+                quizbrain.getQuestionText(),
                 style: TextStyle(color: Colors.white),
               ),
             ),
@@ -70,7 +69,7 @@ class _quizpageState extends State<quizpage> {
                 backgroundColor: Colors.green,
               ),
               onPressed: () {
-                bool correctans = quizbrain.questionBank[questionNum] as bool;
+                bool correctans = quizbrain.getQuestionAnswer();
 
                 if (correctans == false) {
                   Fluttertoast.showToast(
@@ -88,7 +87,7 @@ class _quizpageState extends State<quizpage> {
                       fontSize: 16);
                 }
                 setState(() {
-                  questionNum++;
+                  quizbrain.nextquestion();
                 });
               },
               child: Text(
@@ -106,7 +105,7 @@ class _quizpageState extends State<quizpage> {
                 backgroundColor: Colors.red,
               ),
               onPressed: () {
-                bool correctans = quizbrain.questionBank[questionNum] as bool;
+                bool correctans = quizbrain.getQuestionAnswer();
 
                 if (correctans == true) {
                   Fluttertoast.showToast(
@@ -124,7 +123,7 @@ class _quizpageState extends State<quizpage> {
                       fontSize: 16);
                 }
                 setState(() {
-                  questionNum++;
+                  quizbrain.nextquestion();
                 });
               },
               child: Text(
