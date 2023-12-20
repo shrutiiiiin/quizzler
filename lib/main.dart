@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'quizBrain.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 Quizbrain quizbrain = Quizbrain();
 
@@ -37,12 +38,47 @@ class quizpage extends StatefulWidget {
 }
 
 class _quizpageState extends State<quizpage> {
-  List<Icon> scroekeeper = [
-    Icon(Icons.check, color: Colors.white),
-    Icon(Icons.close, color: Colors.white),
-  ];
+  List<Icon> scorekeeper = [];
 
-  // int questionNum = 0;
+  void checkans(bool userans) {
+    bool correctans = quizbrain.getQuestionAnswer();
+    setState(() {
+      if (quizbrain.isFinished() == true) {
+        Alert(
+          context: context,
+          title: 'Finished',
+          desc: 'you\'ve reached the end of quiz!',
+        ).show();
+        quizbrain.reset();
+        scorekeeper = [];
+      }
+      if (correctans == userans) {
+        scorekeeper.add(Icon(
+          Icons.check,
+          color: Colors.green,
+        ));
+        Fluttertoast.showToast(
+            msg: "Your answer is correct !",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.SNACKBAR,
+            textColor: Colors.white,
+            fontSize: 16);
+      } else {
+        scorekeeper.add(Icon(
+          Icons.close,
+          color: Colors.red,
+        ));
+        Fluttertoast.showToast(
+            msg: "WRONG ANSWER !",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.SNACKBAR,
+            textColor: Colors.white,
+            fontSize: 16);
+      }
+      quizbrain.nextquestion();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -69,26 +105,7 @@ class _quizpageState extends State<quizpage> {
                 backgroundColor: Colors.green,
               ),
               onPressed: () {
-                bool correctans = quizbrain.getQuestionAnswer();
-
-                if (correctans == false) {
-                  Fluttertoast.showToast(
-                      msg: "Your answer is correct !",
-                      toastLength: Toast.LENGTH_SHORT,
-                      gravity: ToastGravity.SNACKBAR,
-                      textColor: Colors.white,
-                      fontSize: 16);
-                } else {
-                  Fluttertoast.showToast(
-                      msg: "WRONG ANSWER !",
-                      toastLength: Toast.LENGTH_SHORT,
-                      gravity: ToastGravity.SNACKBAR,
-                      textColor: Colors.white,
-                      fontSize: 16);
-                }
-                setState(() {
-                  quizbrain.nextquestion();
-                });
+                checkans(true);
               },
               child: Text(
                 'True',
@@ -105,26 +122,7 @@ class _quizpageState extends State<quizpage> {
                 backgroundColor: Colors.red,
               ),
               onPressed: () {
-                bool correctans = quizbrain.getQuestionAnswer();
-
-                if (correctans == true) {
-                  Fluttertoast.showToast(
-                      msg: "Your answer is correct !",
-                      toastLength: Toast.LENGTH_SHORT,
-                      gravity: ToastGravity.SNACKBAR,
-                      textColor: Colors.white,
-                      fontSize: 16);
-                } else {
-                  Fluttertoast.showToast(
-                      msg: "WRONG ANSWER !",
-                      toastLength: Toast.LENGTH_SHORT,
-                      gravity: ToastGravity.SNACKBAR,
-                      textColor: Colors.white,
-                      fontSize: 16);
-                }
-                setState(() {
-                  quizbrain.nextquestion();
-                });
+                checkans(false);
               },
               child: Text(
                 'False',
@@ -134,8 +132,8 @@ class _quizpageState extends State<quizpage> {
           ),
         ),
         Row(
-          children: scroekeeper,
-        ),
+          children: scorekeeper,
+        )
       ],
     );
   }
