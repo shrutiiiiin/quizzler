@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'question.dart';
 
 void main() {
   runApp(quiz());
@@ -38,13 +39,15 @@ class _quizpageState extends State<quizpage> {
     Icon(Icons.check, color: Colors.white),
     Icon(Icons.close, color: Colors.white),
   ];
-  List<String> questions = [
-    'You can lead a cow down stairs but not upstairs',
-    'Approximatetly one quarter of human bones are in the feet',
-    'A slug\'s blood is green ',
+
+  List<Questions> questionBank = [
+    Questions(q: 'You can lead a cow down stairs but not upstairs', a: false),
+    Questions(
+        q: 'Approximatetly one quarter of human bones are in the feet',
+        a: true),
+    Questions(q: 'A slug\'s blood is green ', a: true),
   ];
   int questionNum = 0;
-  List<bool> answers = [false, true, true];
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -57,7 +60,7 @@ class _quizpageState extends State<quizpage> {
             padding: const EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                questions[questionNum],
+                questionBank[questionNum] as String,
                 style: TextStyle(color: Colors.white),
               ),
             ),
@@ -71,7 +74,7 @@ class _quizpageState extends State<quizpage> {
                 backgroundColor: Colors.green,
               ),
               onPressed: () {
-                bool correctans = answers[questionNum];
+                bool correctans = questionBank[questionNum] as bool;
 
                 if (correctans == false) {
                   Fluttertoast.showToast(
@@ -107,7 +110,7 @@ class _quizpageState extends State<quizpage> {
                 backgroundColor: Colors.red,
               ),
               onPressed: () {
-                bool correctans = answers[questionNum];
+                bool correctans = questionBank[questionNum] as bool;
 
                 if (correctans == true) {
                   Fluttertoast.showToast(
